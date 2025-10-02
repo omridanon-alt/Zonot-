@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zonot Barbershop</title>
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("s5hxZrF2q3ZCtteSa");
+            console.log("EmailJS initialized successfully with public key");
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* All your original CSS styles remain exactly the same */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .rtl {
+            direction: rtl;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .scale-in {
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Tab styles */
+        .tab-active {
+            background: linear-gradient(to right, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .tab-inactive {
+            background: white;
+            color: #6b7280;
+        }
+
+        /* Switch toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #10b981;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-blue {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-green {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-red {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .badge-amber {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast.success {
+            background-color: #10b981;
+        }
+        
+        .toast.error {
+            background-color: #ef4444;
+        }
+        
+        .toast.info {
+            background-color: #3b82f6;
+        }
+
+        /* Email validation error style */
+        .email-error {
+            border-color: #ef4444 !important;
+            background-color: #fef2f2 !important;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+    </style>
+</head>
+<body class="rtl bg-gray-50 min-h-screen">
+    <div id="app" class="min-h-screen"></div>
+
+    <script>
+        // FIXED: Use correct EmailJS Service and Template IDs
+        const EMAILJS_SERVICE_ID = 'service_uazyp8c';
+        const CLIENT_CONFIRMATION_TEMPLATE = 'template_9npxsfv';
+        const BARBER_NOTIFICATION_TEMPLATE = 'template_pzyjtns';
+        const CLIENT_CANCELLATION_TEMPLATE = 'template_5ehb0yp';
+        const BARBER_CANCELLATION_TEMPLATE = 'template_2fzn19p';
+        const BARBER_EMAIL = 'omri.danon@dmesports.com';
+        
+        // =============================================
+        // ENHANCED EMAIL VALIDATION FUNCTIONS
+        // =============================================
+        
+        // Comprehensive email validation using RFC-compliant pattern :cite[3]:cite[5]:cite[9]
+        function validateEmailFormat(email) {
+            if (!email || typeof email !== 'string') {
+                return false;
+            }
+            
+            // Enhanced regex pattern for proper email validation :cite[3]:cite[5]
+            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            
+            // Additional length checks based on RFC standards :cite[10]
+            const parts = email.split('@');
+            if (parts.length !== 2) {
+                return false;
+            }
+            
+            const localPart = parts[0];
+            const domainPart = parts[1];
+            
+            // RFC 5321 length constraints :cite[10]
+            if (localPart.length > 64 || domainPart.length > 255 || email.length > 256) {
+                return false;
+            }
+            
+            // Check for consecutive dots in local part :cite[10]
+            if (localPart.includes('..')) {
+                return false;
+            }
+            
+            // Check if local part starts or ends with dot :cite[10]
+            if (localPart.startsWith('.') || localPart.endsWith('.')) {
+                return false;
+            }
+            
+            // Domain part validation
+            const domainParts = domainPart.split('.');
+            if (domainParts.length < 2) {
+                return false;
+            }
+            
+            const tld = domainParts[domainParts.length - 1];
+            // TLD should be at least 2 characters and contain only letters :cite[3]
+            if (tld.length < 2 || !/^[a-zA-Z]+$/.test(tld)) {
+                return false;
+            }
+            
+            return emailRegex.test(email);
+        }
+
+        // Enhanced EmailJS function with comprehensive error handling and validation
+        async function sendTemplatedEmail(templateID, templateParams, retries = 3) {
+            console.log(`🔧 Attempting to send email with template: ${templateID}`);
+            console.log('📧 Email parameters:', templateParams);
+            
+            // Validate email format before sending :cite[1]:cite[4]
+            if (!validateEmailParams(templateParams)) {
+                throw new Error('Missing required email parameters');
+            }
+            
+            for (let attempt = 1; attempt <= retries; attempt++) {
+                try {
+                    console.log(`📤 Email send attempt ${attempt} of ${retries}`);
+                    
+                    const response = await emailjs.send(
+                        EMAILJS_SERVICE_ID, 
+                        templateID, 
+                        templateParams
+                    );
+                    
+                    console.log(`✅ Email sent successfully on attempt ${attempt}!`, response.status, response.text);
+                    return response;
+                } catch (error) {
+                    console.error(`❌ Email send attempt ${attempt} failed:`, error);
+                    
+                    if (attempt === retries) {
+                        console.error(`💥 All ${retries} email send attempts failed`);
+                        throw new Error(`Failed to send email after ${retries} attempts: ${error.text || error.message}`);
+                    }
+                    
+                    // Wait before retrying (exponential backoff)
+                    const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+                    console.log(`⏳ Waiting ${delay}ms before retry...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        // Email parameter validation function
+        function validateEmailParams(params) {
+            const required = ['client_name', 'client_email', 'appointment_date', 'appointment_time'];
+            const missing = required.filter(field => !params[field]);
+            
+            if (missing.length > 0) {
+                console.error('❌ Missing required email parameters:', missing);
+                return false;
+            }
+            
+            // Validate email format using our enhanced validation
+            if (!validateEmailFormat(params.client_email)) {
+                console.error('❌ Invalid email format:', params.client_email);
+                return false;
+            }
+            
+            console.log('✅ All email parameters are valid');
+            return true;
+        }
+
+        // Form validation for client details with enhanced email validation
+        function validateClientForm(name, email, phone) {
+            const errors = [];
+            
+            if (!name || name.trim().length < 2) {
+                errors.push('שם חייב להכיל לפחות 2 תווים');
+            }
+            
+            // Enhanced email validation :cite[1]:cite[4]
+            if (!email || !validateEmailFormat(email)) {
+                errors.push('נא להזין כתובת אימייל תקינה');
+            }
+            
+            const phoneRegex = /^[\d\s\-\(\)\+]+$/;
+            if (!phone || !phoneRegex.test(phone) || phone.replace(/\D/g, '').length < 7) {
+                errors.push('נא להזין מספר טלפון תקין');
+            }
+            
+            return {
+                isValid: errors.length === 0,
+                errors: errors
+            };
+        }
+
+        // Real-time email validation for form fields
+        function setupEmailValidation() {
+            const emailInput = document.getElementById('clientEmail');
+            if (emailInput) {
+                // Remove any existing error messages
+                const existingError = emailInput.parentNode.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                emailInput.addEventListener('blur', function() {
+                    validateEmailField(this);
+                });
+                
+                emailInput.addEventListener('input', function() {
+                    // Remove error styling when user starts typing
+                    if (this.classList.contains('email-error')) {
+                        this.classList.remove('email-error');
+                        const errorMessage = this.parentNode.querySelector('.error-message');
+                        if (errorMessage) {
+                            errorMessage.remove();
+                        }
+                    }
+                });
+            }
+        }
+
+        // Validate individual email field
+        function validateEmailField(emailInput) {
+            const email = emailInput.value.trim();
+            
+            // Remove any existing error messages
+            const existingError = emailInput.parentNode.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            if (!email) {
+                return true; // Allow empty field, required validation will catch it
+            }
+            
+            if (!validateEmailFormat(email)) {
+                // Add error styling
+                emailInput.classList.add('email-error');
+                
+                // Create error message
+                const errorElement = document.createElement('div');
+                errorElement.className = 'error-message';
+                errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> נא להזין כתובת אימייל תקינה';
+                
+                emailInput.parentNode.appendChild(errorElement);
+                return false;
+            }
+            
+            // Remove error styling if valid
+            emailInput.classList.remove('email-error');
+            return true;
+        }
+
+        // Toast Notification Function
+        function showToast(message, type = 'info', duration = 5000) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Hide toast after duration
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, duration);
+        }
+
+        // =============================================
+        // DATA MODELS AND STORAGE MANAGEMENT
+        // =============================================
+
+        class DataStorage {
+            static getAppointments() {
+                return JSON.parse(localStorage.getItem('appointments') || '[]');
+            }
+
+            static saveAppointments(appointments) {
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+            }
+
+            static getWorkingHours() {
+                const stored = JSON.parse(localStorage.getItem('workingHours') || '[]');
+                if (stored.length === 0) {
+                    // Default working hours: Sun-Thu 15:00-22:00, Fri-Sat closed
+                    const defaultHours = [];
+                    for (let i = 0; i < 7; i++) {
+                        defaultHours.push({
+                            id: `wh-${i}`,
+                            day_of_week: i,
+                            start_time: "15:00",
+                            end_time: "22:00",
+                            is_available: i !== 5 && i !== 6
+                        });
+                    }
+                    this.saveWorkingHours(defaultHours);
+                    return defaultHours;
+                }
+                return stored;
+            }
+
+            static saveWorkingHours(workingHours) {
+                localStorage.setItem('workingHours', JSON.stringify(workingHours));
+            }
+
+            static getGalleryItems() {
+                return JSON.parse(localStorage.getItem('galleryItems') || '[]');
+            }
+
+            static saveGalleryItems(galleryItems) {
+                localStorage.setItem('galleryItems', JSON.stringify(galleryItems));
+            }
+
+            static getBarberAuth() {
+                return localStorage.getItem('barberAuthenticated') === 'true';
+            }
+
+            static setBarberAuth(status) {
+                localStorage.setItem('barberAuthenticated', status.toString());
+            }
+        }
+
+        // =============================================
+        // ENTITY CLASSES
+        // =============================================
+
+        class WorkingHours {
+            static list() {
+                return DataStorage.getWorkingHours();
+            }
+
+            static create(data) {
+                const workingHours = DataStorage.getWorkingHours();
+                const newItem = {
+                    id: `wh-${Date.now()}`,
+                    ...data
+                };
+                workingHours.push(newItem);
+                DataStorage.saveWorkingHours(workingHours);
+                return newItem;
+            }
+
+            static update(id, data) {
+                const workingHours = DataStorage.getWorkingHours();
+                const index = workingHours.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    workingHours[index] = { ...workingHours[index], ...data };
+                    DataStorage.saveWorkingHours(workingHours);
+                    return workingHours[index];
+                }
+                return null;
+            }
+
+            static delete(id) {
+                const workingHours = DataStorage.getWorkingHours();
+                const filtered = workingHours.filter(item => item.id !== id);
+                DataStorage.saveWorkingHours(filtered);
+                return true;
+            }
+        }
+
+        class Appointment {
+            static list(sortBy = "-appointment_date") {
+                let appointments = DataStorage.getAppointments();
+                
+                // Sort logic
+                if (sortBy.startsWith('-')) {
+                    const field = sortBy.substring(1);
+                    appointments.sort((a, b) => new Date(b[field]) - new Date(a[field]));
+                } else {
+                    appointments.sort((a, b) => new Date(a[sortBy]) - new Date(b[sortBy]));
+                }
+                
+                return appointments;
+            }
+
+            static filter(filters) {
+                let appointments = DataStorage.getAppointments();
+                
+                return appointments.filter(apt => {
+                    for (let key in filters) {
+                        if (apt[key] !== filters[key]) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+            }
+
+            static create(data) {
+                const appointments = DataStorage.getAppointments();
+                const newAppointment = {
+                    id: `apt-${Date.now()}`,
+                    status: 'booked',
+                    price: 4.0,
+                    cancellation_fee: 2.0,
+                    reminder_24h_sent: false,
+                    reminder_3h_sent: false,
+                    confirmation_sent: false,
+                    created_date: new Date().toISOString(),
+                    ...data
+                };
+                appointments.push(newAppointment);
+                DataStorage.saveAppointments(appointments);
+                return newAppointment;
+            }
+
+            static update(id, data) {
+                const appointments = DataStorage.getAppointments();
+                const index = appointments.findIndex(apt => apt.id === id);
+                if (index !== -1) {
+                    appointments[index] = { ...appointments[index], ...data };
+                    DataStorage.saveAppointments(appointments);
+                    return appointments[index];
+                }
+                return null;
+            }
+
+            static delete(id) {
+                const appointments = DataStorage.getAppointments();
+                const filtered = appointments.filter(apt => apt.id !== id);
+                DataStorage.saveAppointments(filtered);
+                return true;
+            }
+        }
+
+        class GalleryItem {
+            static list(sortBy = "-created_date") {
+                let items = DataStorage.getGalleryItems();
+                
+                if (sortBy.startsWith('-')) {
+                    const field = sortBy.substring(1);
+                    items.sort((a, b) => new Date(b[field]) - new Date(a[field]));
+                } else {
+                    items.sort((a, b) => new Date(a[sortBy]) - new Date(b[sortBy]));
+                }
+                
+                return items;
+            }
+
+            static create(data) {
+                const items = DataStorage.getGalleryItems();
+                const newItem = {
+                    id: `gallery-${Date.now()}`,
+                    type: 'image',
+                    is_featured: false,
+                    created_date: new Date().toISOString(),
+                    ...data
+                };
+                items.push(newItem);
+                DataStorage.saveGalleryItems(items);
+                return newItem;
+            }
+
+            static update(id, data) {
+                const items = DataStorage.getGalleryItems();
+                const index = items.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    items[index] = { ...items[index], ...data };
+                    DataStorage.saveGalleryItems(items);
+                    return items[index];
+                }
+                return null;
+            }
+
+            static delete(id) {
+                const items = DataStorage.getGalleryItems();
+                const filtered = items.filter(item => item.id !== id);
+                DataStorage.saveGalleryItems(filtered);
+                return true;
+            }
+        }
+
+        // =============================================
+        // DATE UTILITY FUNCTIONS
+        // =============================================
+
+        class DateUtils {
+            static format(date, formatStr) {
+                const d = new Date(date);
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                if (formatStr === 'EEEE, dd MMMM yyyy') {
+                    return `${days[d.getDay()]}, ${d.getDate().toString().padStart(2, '0')} ${months[d.getMonth()]} ${d.getFullYear()}`;
+                } else if (formatStr === 'EEEE, MMMM d, yyyy') {
+                    return `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+                } else if (formatStr === 'dd/MM/yyyy') {
+                    return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
+                } else if (formatStr === 'MMMM d, yyyy') {
+                    return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+                } else if (formatStr === 'MMM dd') {
+                    return `${monthsShort[d.getMonth()]} ${d.getDate().toString().padStart(2, '0')}`;
+                } else if (formatStr === 'd') {
+                    return d.getDate().toString();
+                } else if (formatStr === 'EEE') {
+                    return days[d.getDay()].substring(0, 3);
+                } else if (formatStr === 'EEEE') {
+                    return days[d.getDay()];
+                }
+                
+                return d.toLocaleDateString();
+            }
+
+            static addDays(date, days) {
+                const result = new Date(date);
+                result.setDate(result.getDate() + days);
+                return result;
+            }
+
+            static startOfWeek(date, weekStartsOn = 0) {
+                const result = new Date(date);
+                const day = result.getDay();
+                const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+                result.setDate(result.getDate() - diff);
+                result.setHours(0, 0, 0, 0);
+                return result;
+            }
+
+            static isSameDay(date1, date2) {
+                return (
+                    date1.getFullYear() === date2.getFullYear() &&
+                    date1.getMonth() === date2.getMonth() &&
+                    date1.getDate() === date2.getDate()
+                );
+            }
+
+            static isAfter(date1, date2) {
+                return date1.getTime() > date2.getTime();
+            }
+
+            static isBefore(date1, date2) {
+                return date1.getTime() < date2.getTime();
+            }
+
+            static differenceInHours(date1, date2) {
+                const diff = date1.getTime() - date2.getTime();
+                return Math.floor(diff / (1000 * 60 * 60));
+            }
+
+            static parseISO(dateString) {
+                return new Date(dateString);
+            }
+        }
+
+        // =============================================
+        // APPLICATION STATE AND ROUTING
+        // =============================================
+
+        class AppState {
+            constructor() {
+                this.currentPage = 'HomePage';
+                this.currentStep = 1;
+                this.selectedDate = null;
+                this.selectedTime = null;
+                this.clientInfo = { name: "", email: "", phone: "" };
+                this.bookingData = {};
+                this.activeTab = 'appointments';
+                this.currentWeek = DateUtils.startOfWeek(new Date(), 0);
+                this.render();
+            }
+
+            navigateTo(page) {
+                this.currentPage = page;
+                this.currentStep = 1;
+                this.selectedDate = null;
+                this.selectedTime = null;
+                this.clientInfo = { name: "", email: "", phone: "" };
+                this.bookingData = {};
+                this.currentWeek = DateUtils.startOfWeek(new Date(), 0);
+                this.render();
+            }
+
+            setStep(step) {
+                this.currentStep = step;
+                this.render();
+            }
+
+            setSelectedDate(date) {
+                this.selectedDate = date;
+                this.setStep(2);
+            }
+
+            setSelectedTime(time) {
+                this.selectedTime = time;
+                this.setStep(3);
+            }
+
+            setClientInfo(info) {
+                this.clientInfo = info;
+                this.setStep(4);
+            }
+
+            setActiveTab(tab) {
+                this.activeTab = tab;
+                this.render();
+            }
+
+            nextWeek() {
+                this.currentWeek = DateUtils.addDays(this.currentWeek, 7);
+                this.render();
+            }
+
+            // === CRITICAL FIX: Updated prevWeek method to allow returning to current week ===
+            prevWeek() {
+                const previousWeek = DateUtils.addDays(this.currentWeek, -7);
+                const startOfCurrentWeek = DateUtils.startOfWeek(new Date(), 0);
+                
+                // Allow navigation to current week and any future weeks
+                // Only prevent going to weeks before the current week
+                if (DateUtils.isBefore(previousWeek, startOfCurrentWeek)) {
+                    // If trying to go before current week, stay at current week
+                    this.currentWeek = startOfCurrentWeek;
+                } else {
+                    // Otherwise, allow normal navigation to previous week
+                    this.currentWeek = previousWeek;
+                }
+                this.render();
+            }
+
+            render() {
+                const app = document.getElementById('app');
+                app.innerHTML = '';
+
+                switch (this.currentPage) {
+                    case 'HomePage':
+                        app.appendChild(this.renderHomePage());
+                        break;
+                    case 'BarberLogin':
+                        app.appendChild(this.renderBarberLogin());
+                        break;
+                    case 'BarberDashboard':
+                        if (DataStorage.getBarberAuth()) {
+                            app.appendChild(this.renderBarberDashboard());
+                        } else {
+                            this.navigateTo('BarberLogin');
+                        }
+                        break;
+                    case 'ClientBooking':
+                        app.appendChild(this.renderClientBooking());
+                        break;
+                    case 'CancelAppointment':
+                        app.appendChild(this.renderCancelAppointment());
+                        break;
+                    case 'Gallery':
+                        app.appendChild(this.renderGallery());
+                        break;
+                }
+
+                // Setup email validation after rendering
+                setTimeout(() => {
+                    setupEmailValidation();
+                }, 100);
+            }
+
+            // =============================================
+            // PAGE COMPONENTS
+            // =============================================
+
+            renderHomePage() {
+                const container = document.createElement('div');
+                container.className = 'min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6';
+                
+                container.innerHTML = `
+                    <div class="w-full max-w-5xl fade-in">
+                        <!-- Header -->
+                        <div class="text-center mb-16">
+                            <div class="inline-flex items-center justify-center w-32 h-32 mb-8 rounded-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 shadow-2xl ring-8 ring-amber-200/20 bounce-in">
+                                <i class="fas fa-scissors text-white text-4xl"></i>
+                            </div>
+                            
+                            <h1 class="text-7xl font-extralight text-transparent bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text mb-6 bounce-in" style="animation-delay: 0.2s">
+                                zonot
+                            </h1>
+                            
+                            <p class="text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed bounce-in" style="animation-delay: 0.4s">
+                                Premium Barbershop Experience
+                            </p>
+                            
+                            <div class="mt-6 bounce-in" style="animation-delay: 0.6s">
+                                <span class="inline-flex items-center px-6 py-2 rounded-full bg-green-500/20 text-green-300 text-lg font-medium">
+                                    <i class="fas fa-dollar-sign mr-2"></i> $4 Haircuts • Professional Service
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Main Action Cards -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                            <!-- Book Appointment Card -->
+                            <div class="slide-in-left card-hover">
+                                <div class="bg-gradient-to-br from-blue-600 to-indigo-700 border-0 hover:shadow-2xl transition-all duration-500 cursor-pointer group overflow-hidden relative rounded-2xl">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div class="p-8 text-center relative z-10">
+                                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fas fa-calendar text-white text-3xl"></i>
+                                        </div>
+                                        <h2 class="text-2xl font-bold text-white mb-4">Book Appointment</h2>
+                                        <p class="text-blue-100 mb-8 leading-relaxed">
+                                            Schedule your premium haircut experience with our professional barber
+                                        </p>
+                                        <div class="space-y-3 mb-6">
+                                            <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                                                <span class="text-white font-semibold text-lg">$4.00</span>
+                                                <span class="text-blue-100 text-sm mr-2">50-minute service</span>
+                                            </div>
+                                        </div>
+                                        <button onclick="app.navigateTo('ClientBooking')" class="w-full bg-white text-blue-700 hover:bg-blue-50 border-0 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
+                                            Book Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cancel Appointment Card -->
+                            <div class="slide-in-up card-hover" style="animation-delay: 0.2s">
+                                <div class="bg-gradient-to-br from-red-600 to-pink-700 border-0 hover:shadow-2xl transition-all duration-500 cursor-pointer group overflow-hidden relative rounded-2xl">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-red-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div class="p-8 text-center relative z-10">
+                                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fas fa-times text-white text-3xl"></i>
+                                        </div>
+                                        <h2 class="text-2xl font-bold text-white mb-4">Cancel Appointment</h2>
+                                        <p class="text-red-100 mb-8 leading-relaxed">
+                                            Need to cancel? Do it up to 5 hours before your appointment
+                                        </p>
+                                        <div class="space-y-2 mb-6">
+                                            <div class="bg-white/10 rounded-lg p-2 backdrop-blur-sm">
+                                                <span class="text-red-100 text-sm">Cancellation fee: </span>
+                                                <span class="text-white font-semibold">$2.00</span>
+                                            </div>
+                                            <div class="text-red-200 text-xs">
+                                                Must tear off receipt bottom part
+                                            </div>
+                                        </div>
+                                        <button onclick="app.navigateTo('CancelAppointment')" class="w-full bg-white text-red-700 hover:bg-red-50 border-0 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
+                                            Cancel Appointment
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gallery Card -->
+                            <div class="slide-in-right card-hover" style="animation-delay: 0.4s">
+                                <div class="bg-gradient-to-br from-purple-600 to-violet-700 border-0 hover:shadow-2xl transition-all duration-500 cursor-pointer group overflow-hidden relative rounded-2xl">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div class="p-8 text-center relative z-10">
+                                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fas fa-camera text-white text-3xl"></i>
+                                        </div>
+                                        <h2 class="text-2xl font-bold text-white mb-4">Our Work</h2>
+                                        <p class="text-purple-100 mb-8 leading-relaxed">
+                                            Browse our gallery of satisfied clients and professional haircuts
+                                        </p>
+                                        <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm mb-6">
+                                            <span class="text-purple-100 text-sm">View our latest work</span>
+                                        </div>
+                                        <button onclick="app.navigateTo('Gallery')" class="w-full bg-white text-purple-700 hover:bg-purple-50 border-0 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
+                                            View Gallery
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Barber Access -->
+                        <div class="text-center slide-in-up" style="animation-delay: 0.6s">
+                            <div class="bg-gradient-to-r from-amber-500/10 to-yellow-500/10 backdrop-blur-sm border border-amber-500/20 hover:shadow-xl transition-all duration-500 cursor-pointer max-w-md mx-auto group rounded-2xl p-6">
+                                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-crown text-white text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-amber-300 mb-2">ספר</h3>
+                                <p class="text-slate-400 text-sm mb-6">
+                                    ניהול תורים, זמני עבודה וגלריה
+                                </p>
+                                <button onclick="app.navigateTo('BarberLogin')" class="w-full border-amber-400/50 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400 transition-all duration-300 border rounded-xl py-2">
+                                    כניסה לספר
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="text-center mt-16 fade-in" style="animation-delay: 0.8s">
+                            <p class="text-slate-500 text-sm">
+                                Professional barbershop management system • zonot 2024
+                            </p>
+                        </div>
+                    </div>
+                `;
+                
+                return container;
+            }
+
+            renderBarberLogin() {
+                const container = document.createElement('div');
+                container.className = 'min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-50 via-blue-50 to-amber-50';
+                
+                container.innerHTML = `
+                    <div class="w-full max-w-md scale-in">
+                        <div class="glass-effect shadow-2xl border-0 rounded-2xl">
+                            <div class="text-center pb-6 p-6">
+                                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-amber-500 to-yellow-600 flex items-center justify-center">
+                                    <i class="fas fa-lock text-white text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-light text-slate-800">כניסה לספר</h2>
+                                <p class="text-slate-600 mt-2">הכנס קוד אימות לכניסה למערכת</p>
+                            </div>
+                            
+                            <div class="p-6">
+                                <form id="barberLoginForm" class="space-y-6">
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-700">קוד אימות</label>
+                                        <input type="password" id="authCode" class="text-center text-lg tracking-wider border-2 focus:border-amber-500 transition-colors w-full p-3 rounded-lg" placeholder="הכנס קוד אימות" required>
+                                    </div>
+
+                                    <div id="loginError" class="hidden bg-red-50 border border-red-200 text-red-600 p-3 rounded-lg text-sm">
+                                        <i class="fas fa-exclamation-circle mr-2"></i>
+                                        <span id="errorText"></span>
+                                    </div>
+
+                                    <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 rounded-xl">
+                                        <span id="loginButtonText">כניסה</span>
+                                        <i class="fas fa-arrow-left mr-2"></i>
+                                    </button>
+
+                                    <button type="button" onclick="app.navigateTo('HomePage')" class="w-full text-slate-600 hover:text-slate-800 rounded-lg py-2">
+                                        חזרה לדף הראשי
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.querySelector('#barberLoginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const code = document.getElementById('authCode').value;
+                    const errorDiv = document.getElementById('loginError');
+                    const errorText = document.getElementById('errorText');
+                    const loginButton = container.querySelector('button[type="submit"]');
+                    const loginButtonText = document.getElementById('loginButtonText');
+
+                    loginButton.disabled = true;
+                    loginButtonText.innerHTML = '<div class="spinner mx-auto"></div> בודק קוד...';
+
+                    setTimeout(() => {
+                        if (code === '290808') {
+                            DataStorage.setBarberAuth(true);
+                            this.navigateTo('BarberDashboard');
+                        } else {
+                            errorText.textContent = 'קוד אימות שגוי';
+                            errorDiv.classList.remove('hidden');
+                            loginButton.disabled = false;
+                            loginButtonText.textContent = 'כניסה';
+                        }
+                    }, 800);
+                });
+
+                return container;
+            }
+
+            renderBarberDashboard() {
+                const container = document.createElement('div');
+                container.className = 'min-h-screen p-6 bg-gradient-to-br from-slate-50 via-blue-50 to-amber-50';
+                
+                const appointments = Appointment.list();
+                const workingHours = WorkingHours.list();
+                const galleryItems = GalleryItem.list();
+
+                container.innerHTML = `
+                    <div class="max-w-7xl mx-auto">
+                        <!-- Header -->
+                        <div class="flex justify-between items-center mb-8 fade-in">
+                            <div>
+                                <h1 class="text-4xl font-light text-slate-800 mb-2">דשבורד ספר</h1>
+                                <p class="text-slate-600">ניהול תורים וזמני עבודה</p>
+                            </div>
+                            <button onclick="DataStorage.setBarberAuth(false); app.navigateTo('HomePage');" class="flex items-center gap-2 hover:bg-red-50 hover:text-red-700 hover:border-red-200 border rounded-xl px-4 py-2 transition-colors">
+                                <i class="fas fa-sign-out-alt"></i>
+                                יציאה
+                            </button>
+                        </div>
+
+                        <!-- Stats Cards -->
+                        <div class="mb-8 fade-in" style="animation-delay: 0.1s">
+                            ${this.renderBarberStats(appointments)}
+                        </div>
+
+                        <!-- Main Content Tabs -->
+                        <div class="fade-in" style="animation-delay: 0.2s">
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                <!-- Tab Headers -->
+                                <div class="flex border-b border-slate-200">
+                                    <button class="flex-1 py-4 px-6 text-center font-medium transition-colors ${this.activeTab === 'appointments' ? 'tab-active' : 'tab-inactive'}" 
+                                            onclick="app.setActiveTab('appointments')">
+                                        <i class="fas fa-calendar mr-2"></i>
+                                        תורים
+                                    </button>
+                                    <button class="flex-1 py-4 px-6 text-center font-medium transition-colors ${this.activeTab === 'schedule' ? 'tab-active' : 'tab-inactive'}" 
+                                            onclick="app.setActiveTab('schedule')">
+                                        <i class="fas fa-clock mr-2"></i>
+                                        זמני עבודה
+                                    </button>
+                                    <button class="flex-1 py-4 px-6 text-center font-medium transition-colors ${this.activeTab === 'gallery' ? 'tab-active' : 'tab-inactive'}" 
+                                            onclick="app.setActiveTab('gallery')">
+                                        <i class="fas fa-camera mr-2"></i>
+                                        גלריה
+                                    </button>
+                                    <button class="flex-1 py-4 px-6 text-center font-medium transition-colors ${this.activeTab === 'clients' ? 'tab-active' : 'tab-inactive'}" 
+                                            onclick="app.setActiveTab('clients')">
+                                        <i class="fas fa-users mr-2"></i>
+                                        לקוחות
+                                    </button>
+                                </div>
+
+                                <!-- Tab Content -->
+                                <div class="p-6">
+                                    ${this.activeTab === 'appointments' ? this.renderAppointmentsList(appointments) : ''}
+                                    ${this.activeTab === 'schedule' ? this.renderWorkingHoursSetup(workingHours) : ''}
+                                    ${this.activeTab === 'gallery' ? this.renderGalleryManager(galleryItems) : ''}
+                                    ${this.activeTab === 'clients' ? this.renderClientsList(appointments) : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                return container;
+            }
+
+            renderBarberStats(appointments) {
+                const todayAppointments = appointments.filter(apt => {
+                    const today = new Date().toISOString().split('T')[0];
+                    return apt.appointment_date === today && apt.status !== 'cancelled';
+                });
+
+                const totalAppointments = appointments.filter(apt => apt.status !== 'cancelled').length;
+                const completedAppointments = appointments.filter(apt => apt.status === 'completed').length;
+                const uniqueClients = new Set(appointments.filter(apt => apt.status !== 'cancelled').map(apt => apt.client_phone)).size;
+
+                const stats = [
+                    { title: "תורים היום", value: todayAppointments.length, icon: "calendar", color: "blue" },
+                    { title: "סה״כ תורים", value: totalAppointments, icon: "clock", color: "green" },
+                    { title: "לקוחות", value: uniqueClients, icon: "users", color: "purple" },
+                    { title: "הושלמו", value: completedAppointments, icon: "check-circle", color: "amber" }
+                ];
+
+                return `
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        ${stats.map((stat, index) => `
+                            <div class="glass-effect border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl p-6 slide-in-left" style="animation-delay: ${index * 0.1}s">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-600 mb-1">${stat.title}</p>
+                                        <p class="text-3xl font-bold text-slate-800">${stat.value}</p>
+                                    </div>
+                                    <div class="p-3 rounded-full bg-gradient-to-r from-${stat.color}-500 to-${stat.color}-600">
+                                        <i class="fas fa-${stat.icon} text-white text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            renderAppointmentsList(appointments) {
+                const upcomingAppointments = appointments
+                    .filter(apt => apt.status === 'booked')
+                    .sort((a, b) => new Date(`${a.appointment_date}T${a.start_time}`) - new Date(`${b.appointment_date}T${b.start_time}`))
+                    .slice(0, 10);
+
+                if (upcomingAppointments.length === 0) {
+                    return '<div class="text-center py-8 text-slate-600">אין תורים קרובים</div>';
+                }
+
+                return `
+                    <div class="space-y-4">
+                        ${upcomingAppointments.map((appointment, index) => `
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow slide-in-up" style="animation-delay: ${index * 0.05}s">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-user text-slate-500"></i>
+                                        <span class="font-medium text-slate-800">${appointment.client_name}</span>
+                                        <span class="badge badge-blue">
+                                            <i class="fas fa-dollar-sign mr-1"></i>
+                                            $${appointment.price || 4}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="badge badge-green">מתוכנן</span>
+                                        <button onclick="app.cancelBarberAppointment('${appointment.id}')" class="text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg p-1 transition-colors">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-slate-600">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-calendar"></i>
+                                        ${DateUtils.format(new Date(appointment.appointment_date), 'dd/MM/yyyy')}
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-clock"></i>
+                                        ${appointment.start_time} - ${appointment.end_time}
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-phone"></i>
+                                        ${appointment.client_phone}
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-2 text-sm text-slate-500">
+                                    <i class="fas fa-envelope mr-1"></i> ${appointment.client_email}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            renderWorkingHoursSetup(workingHours) {
+                const daysInHebrew = ["ראשון", "שני", "שלישي", "רביעי", "חמישי", "שישי", "שבת"];
+
+                return `
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <i class="fas fa-cog text-slate-700"></i>
+                            <h3 class="text-xl font-semibold text-slate-800">הגדרת זמני עבודה</h3>
+                        </div>
+                        <p class="text-slate-600 mb-6">קבע את הימים והשעות שבהם אתה זמין לתורים</p>
+                        
+                        <div id="workingHoursForm">
+                            ${daysInHebrew.map((dayName, dayIndex) => {
+                                const daySchedule = workingHours.find(wh => wh.day_of_week === dayIndex) || {
+                                    day_of_week: dayIndex,
+                                    start_time: "15:00",
+                                    end_time: "22:00",
+                                    is_available: dayIndex !== 5 && dayIndex !== 6
+                                };
+
+                                return `
+                                    <div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm border border-slate-100 mb-4 slide-in-up" style="animation-delay: ${dayIndex * 0.1}s">
+                                        <div class="flex items-center gap-4">
+                                            <label class="switch">
+                                                <input type="checkbox" ${daySchedule.is_available ? 'checked' : ''} onchange="app.toggleWorkingDay(${dayIndex}, this.checked)">
+                                                <span class="slider"></span>
+                                            </label>
+                                            <span class="font-medium text-slate-800 w-16">${dayName}</span>
+                                        </div>
+
+                                        ${daySchedule.is_available ? `
+                                            <div class="flex items-center gap-4">
+                                                <div class="flex items-center gap-2">
+                                                    <i class="fas fa-clock text-slate-500"></i>
+                                                    <span class="text-sm text-slate-600">מ:</span>
+                                                    <input type="time" value="${daySchedule.start_time}" onchange="app.updateWorkingTime(${dayIndex}, 'start_time', this.value)" class="w-32 p-2 border border-slate-300 rounded-lg">
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-sm text-slate-600">עד:</span>
+                                                    <input type="time" value="${daySchedule.end_time}" onchange="app.updateWorkingTime(${dayIndex}, 'end_time', this.value)" class="w-32 p-2 border border-slate-300 rounded-lg">
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        <div class="flex justify-end pt-4">
+                            <button onclick="app.saveWorkingHours()" class="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3 font-medium">
+                                <i class="fas fa-save mr-2"></i>
+                                שמור זמני עבודה
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderGalleryManager(galleryItems) {
+                return `
+                    <div class="space-y-8">
+                        <!-- Upload New Item -->
+                        <div class="glass-effect border-0 shadow-lg rounded-2xl p-6 slide-in-up">
+                            <div class="flex items-center gap-2 mb-6">
+                                <i class="fas fa-upload text-slate-700"></i>
+                                <h3 class="text-xl font-semibold text-slate-800">הוסף תמונה חדשה</h3>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">כותרת *</label>
+                                        <input type="text" id="galleryTitle" placeholder="למשל: תספורת קלאסית" class="w-full p-3 border border-slate-300 rounded-lg focus:border-purple-500">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <label class="switch">
+                                            <input type="checkbox" id="galleryFeatured">
+                                            <span class="slider"></span>
+                                        </label>
+                                        <label class="text-sm font-medium text-slate-700">תמונה מומלצת</label>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="text-sm font-medium text-slate-700 mb-2 block">תיאור</label>
+                                    <textarea id="galleryDescription" placeholder="תאר את העבודה שמוצגת בתמונה..." class="w-full p-3 border border-slate-300 rounded-lg h-20 focus:border-purple-500"></textarea>
+                                </div>
+
+                                <div class="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center">
+                                    <i class="fas fa-camera text-slate-400 text-3xl mb-4"></i>
+                                    <p class="text-slate-600 mb-4">גרור תמונות לכאן או לחץ להעלאה</p>
+                                    <input type="file" id="galleryUpload" accept="image/*" class="hidden">
+                                    <button onclick="document.getElementById('galleryUpload').click()" class="bg-gradient-to-r from-purple-600 to-violet-700 hover:from-purple-700 hover:to-violet-800 text-white px-6 py-3 rounded-lg font-medium">
+                                        <i class="fas fa-upload mr-2"></i>
+                                        העלה תמונות
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gallery Items Management -->
+                        <div class="glass-effect border-0 shadow-lg rounded-2xl p-6 slide-in-up" style="animation-delay: 0.1s">
+                            <div class="flex items-center gap-2 mb-6">
+                                <i class="fas fa-camera text-slate-700"></i>
+                                <h3 class="text-xl font-semibold text-slate-800">ניהול גלריה (${galleryItems.length} פריטים)</h3>
+                            </div>
+                            
+                            ${galleryItems.length === 0 ? `
+                                <div class="text-center py-8 text-slate-600">
+                                    אין פריטים בגלריה
+                                </div>
+                            ` : `
+                                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    ${galleryItems.map((item, index) => `
+                                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden slide-in-up" style="animation-delay: ${index * 0.05}s">
+                                            <div class="relative aspect-square">
+                                                <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover">
+                                                ${item.is_featured ? `
+                                                    <div class="absolute top-2 right-2">
+                                                        <div class="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                                            ⭐ מומלץ
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                            
+                                            <div class="p-4">
+                                                <h4 class="font-semibold text-slate-800 mb-2">${item.title}</h4>
+                                                <p class="text-sm text-slate-600 mb-4">${item.description}</p>
+                                                
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex gap-2">
+                                                        <button onclick="app.toggleGalleryFeatured('${item.id}')" class="p-2 rounded-lg ${item.is_featured ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-700'}">
+                                                            <i class="fas fa-star"></i>
+                                                        </button>
+                                                        <button onclick="app.deleteGalleryItem('${item.id}')" class="p-2 rounded-lg bg-red-100 text-red-700">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderClientsList(appointments) {
+                const uniqueClients = appointments
+                    .filter(apt => apt.status !== 'cancelled')
+                    .reduce((unique, apt) => {
+                        const exists = unique.find(u => u.client_phone === apt.client_phone);
+                        if (!exists) {
+                            unique.push(apt);
+                        }
+                        return unique;
+                    }, []);
+
+                return `
+                    <div class="space-y-4">
+                        ${uniqueClients.map((client, index) => {
+                            const clientAppointments = appointments.filter(apt => 
+                                apt.client_phone === client.client_phone && apt.status !== 'cancelled'
+                            ).length;
+
+                            return `
+                                <div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm border border-slate-100 slide-in-up" style="animation-delay: ${index * 0.05}s">
+                                    <div>
+                                        <h3 class="font-medium text-slate-800">${client.client_name}</h3>
+                                        <p class="text-sm text-slate-600">${client.client_phone}</p>
+                                    </div>
+                                    <div class="text-sm text-slate-500">
+                                        ${clientAppointments} תורים
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            renderClientBooking() {
+                const container = document.createElement('div');
+                container.className = 'min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-6';
+                
+                const stepTitles = {
+                    1: "Select Date",
+                    2: "Select Time", 
+                    3: "Enter Details",
+                    4: "Confirm Booking",
+                    5: "Booking Confirmed"
+                };
+
+                container.innerHTML = `
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Header -->
+                        <div class="flex items-center gap-4 mb-8 fade-in">
+                            <button onclick="${this.currentStep > 1 ? 'app.setStep(' + (this.currentStep - 1) + ')' : 'app.navigateTo(\'HomePage\')'}" class="shrink-0 bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl p-2 transition-colors">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <div>
+                                <h1 class="text-4xl font-light text-white">${stepTitles[this.currentStep]}</h1>
+                                <p class="text-slate-300 text-lg">Book your appointment with zonot</p>
+                            </div>
+                        </div>
+
+                        <!-- Progress Steps -->
+                        <div class="flex justify-center mb-12 fade-in" style="animation-delay: 0.1s">
+                            <div class="flex items-center gap-3">
+                                ${[1, 2, 3, 4].map(stepNum => `
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${
+                                            this.currentStep >= stepNum 
+                                                ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg' 
+                                                : 'bg-white/20 text-slate-400 backdrop-blur-sm'
+                                        }">
+                                            ${this.currentStep > stepNum ? '<i class="fas fa-check"></i>' : stepNum}
+                                        </div>
+                                        ${stepNum < 4 ? `
+                                            <div class="w-12 h-1 mx-3 rounded-full transition-colors duration-300 ${
+                                                this.currentStep > stepNum ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-white/20'
+                                            }"></div>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Step Content -->
+                        <div class="fade-in" style="animation-delay: 0.2s">
+                            ${this.currentStep === 1 ? this.renderDateSelection() : ''}
+                            ${this.currentStep === 2 ? this.renderTimeSelection() : ''}
+                            ${this.currentStep === 3 ? this.renderClientDetails() : ''}
+                            ${this.currentStep === 4 ? this.renderBookingConfirmation() : ''}
+                            ${this.currentStep === 5 ? this.renderBookingSuccess() : ''}
+                        </div>
+                    </div>
+                `;
+
+                return container;
+            }
+
+            renderDateSelection() {
+                const workingHours = WorkingHours.list();
+                const existingAppointments = Appointment.filter({ status: 'booked' });
+
+                const availableDays = workingHours.filter(wh => wh.is_available).map(wh => wh.day_of_week);
+
+                const isDateAvailable = (date) => {
+                    const dayOfWeek = date.getDay();
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    return !DateUtils.isBefore(date, today) && availableDays.includes(dayOfWeek);
+                };
+
+                const getWeekDays = () => {
+                    const days = [];
+                    for (let i = 0; i < 7; i++) {
+                        days.push(DateUtils.addDays(this.currentWeek, i));
+                    }
+                    return days;
+                };
+
+                const weekDays = getWeekDays();
+                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+                return `
+                    <div class="glass-effect border-0 shadow-lg max-w-2xl mx-auto rounded-2xl overflow-hidden">
+                        <div class="text-center p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <i class="fas fa-calendar"></i>
+                                <h2 class="text-xl font-semibold">Select Your Preferred Date</h2>
+                            </div>
+                            <p class="text-blue-100">Choose from available dates</p>
+                        </div>
+                        <div class="p-6">
+                            <!-- Week Navigation - FIXED: Now properly allows returning to current week -->
+                            <div class="flex justify-between items-center mb-6">
+                                <button onclick="app.prevWeek()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg transition-colors">
+                                    Previous Week
+                                </button>
+                                <h3 class="font-semibold text-lg text-slate-800">
+                                    ${DateUtils.format(this.currentWeek, 'MMM dd')} - ${DateUtils.format(DateUtils.addDays(this.currentWeek, 6), 'MMM dd, yyyy')}
+                                </h3>
+                                <button onclick="app.nextWeek()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg transition-colors">
+                                    Next Week
+                                </button>
+                            </div>
+
+                            <!-- Calendar Grid -->
+                            <div class="grid grid-cols-7 gap-2 mb-2">
+                                ${dayNames.map(day => `
+                                    <div class="text-center text-sm font-medium text-slate-600 p-2">${day}</div>
+                                `).join('')}
+                                
+                                ${weekDays.map((date, index) => {
+                                    const available = isDateAvailable(date);
+                                    return `
+                                        <button 
+                                            ${!available ? 'disabled' : ''}
+                                            onclick="app.setSelectedDate(new Date('${date.toISOString()}'))"
+                                            class="w-full h-12 p-0 rounded-lg transition-all ${
+                                                available 
+                                                    ? 'border-2 border-slate-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 text-slate-700' 
+                                                    : 'text-slate-300 cursor-not-allowed bg-slate-100'
+                                            } ${
+                                                DateUtils.isSameDay(date, new Date()) && available
+                                                    ? 'ring-2 ring-blue-500 bg-blue-50'
+                                                    : ''
+                                            }"
+                                        >
+                                            <div class="text-center">
+                                                <div class="font-semibold">${DateUtils.format(date, 'd')}</div>
+                                                <div class="text-xs">${DateUtils.format(date, 'EEE')}</div>
+                                            </div>
+                                        </button>
+                                    `;
+                                }).join('')}
+                            </div>
+
+                            <div class="text-center text-sm text-slate-600 mt-4">
+                                Available days are highlighted. Select a date to continue.
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderTimeSelection() {
+                if (!this.selectedDate) {
+                    this.setStep(1);
+                    return '';
+                }
+
+                const workingHours = WorkingHours.list();
+                const existingAppointments = Appointment.filter({ status: 'booked' });
+                const dayOfWeek = this.selectedDate.getDay();
+                const daySchedule = workingHours.find(wh => wh.day_of_week === dayOfWeek && wh.is_available);
+
+                const generateTimeSlots = () => {
+                    if (!daySchedule) return [];
+
+                    const slots = [];
+                    const [startHour, startMinute] = daySchedule.start_time.split(':').map(Number);
+                    const [endHour, endMinute] = daySchedule.end_time.split(':').map(Number);
+                    
+                    const startTime = startHour * 60 + startMinute;
+                    const endTime = endHour * 60 + endMinute;
+                    
+                    for (let time = startTime; time + 50 <= endTime; time += 50) {
+                        const hour = Math.floor(time / 60);
+                        const minute = time % 60;
+                        const endSlotTime = time + 50;
+                        const endHour = Math.floor(endSlotTime / 60);
+                        const endMinute = endSlotTime % 60;
+                        
+                        const timeSlot = {
+                            start: `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`,
+                            end: `${endHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`
+                        };
+                        
+                        slots.push(timeSlot);
+                    }
+                    
+                    return slots;
+                };
+
+                const isTimeSlotAvailable = (timeSlot) => {
+                    const selectedDateStr = this.selectedDate.toISOString().split('T')[0];
+                    
+                    return !existingAppointments.some(apt => 
+                        apt.appointment_date === selectedDateStr &&
+                        apt.status === 'booked' &&
+                        (
+                            (apt.start_time <= timeSlot.start && apt.end_time > timeSlot.start) ||
+                            (apt.start_time < timeSlot.end && apt.end_time >= timeSlot.end) ||
+                            (apt.start_time >= timeSlot.start && apt.end_time <= timeSlot.end)
+                        )
+                    );
+                };
+
+                const timeSlots = generateTimeSlots();
+                const availableSlots = timeSlots.filter(isTimeSlotAvailable);
+
+                return `
+                    <div class="glass-effect border-0 shadow-lg max-w-2xl mx-auto rounded-2xl overflow-hidden">
+                        <div class="text-center p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <i class="fas fa-clock"></i>
+                                <h2 class="text-xl font-semibold">Select Time Slot</h2>
+                            </div>
+                            <p class="text-blue-100">
+                                Available times for ${DateUtils.format(this.selectedDate, 'EEEE, MMMM d, yyyy')}
+                            </p>
+                        </div>
+                        <div class="p-6">
+                            ${availableSlots.length === 0 ? `
+                                <div class="text-center py-8">
+                                    <p class="text-slate-600 mb-4">No available time slots for this date.</p>
+                                    <button onclick="app.setStep(1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg transition-colors">
+                                        Choose Different Date
+                                    </button>
+                                </div>
+                            ` : `
+                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                                    ${availableSlots.map((slot, index) => `
+                                        <button
+                                            onclick="app.setSelectedTime(${JSON.stringify(slot).replace(/"/g, '&quot;')})"
+                                            class="w-full h-16 border-2 border-slate-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 text-slate-700 slide-in-up"
+                                            style="animation-delay: ${index * 0.05}s"
+                                        >
+                                            <div class="text-center">
+                                                <div class="font-semibold">${slot.start}</div>
+                                                <div class="text-xs text-slate-500">${slot.end}</div>
+                                                <div class="text-xs text-slate-400">50 min</div>
+                                            </div>
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderClientDetails() {
+                return `
+                    <div class="glass-effect border-0 shadow-2xl max-w-lg mx-auto bg-gradient-to-br from-white/95 to-blue-50/95 backdrop-blur-lg rounded-2xl overflow-hidden">
+                        <div class="text-center pb-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-t-2xl p-8">
+                            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                <i class="fas fa-user text-white text-2xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-light">Your Contact Details</h2>
+                            <p class="text-blue-100 mt-2">
+                                We'll keep your information for appointment management
+                            </p>
+                        </div>
+                        <div class="p-8">
+                            <form id="clientDetailsForm" class="space-y-6">
+                                <div class="space-y-3">
+                                    <label class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                        <i class="fas fa-user"></i>
+                                        Full Name *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="clientName"
+                                        required
+                                        placeholder="Enter your full name"
+                                        class="w-full p-3 border-2 border-slate-200 rounded-lg focus:border-blue-500 transition-colors"
+                                    >
+                                </div>
+
+                                <div class="space-y-3">
+                                    <label class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                        <i class="fas fa-envelope"></i>
+                                        Email Address *
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="clientEmail"
+                                        required
+                                        placeholder="your.email@example.com"
+                                        class="w-full p-3 border-2 border-slate-200 rounded-lg focus:border-blue-500 transition-colors"
+                                    >
+                                    <div class="text-sm text-slate-500 mt-1">
+                                        נא להזין כתובת אימייל תקינה כמו yourname@domain.com
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <label class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                        <i class="fas fa-phone"></i>
+                                        Phone Number *
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="clientPhone"
+                                        required
+                                        placeholder="Enter your phone number"
+                                        class="w-full p-3 border-2 border-slate-200 rounded-lg focus:border-blue-500 transition-colors"
+                                    >
+                                </div>
+
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+                                    <div class="flex items-start gap-3">
+                                        <i class="fas fa-shield-alt text-blue-600 mt-1"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-blue-900 mb-1">Contact Information</h4>
+                                            <ul class="text-sm text-blue-800 space-y-1">
+                                                <li>• Your booking will be confirmed immediately</li>
+                                                <li>• Keep this information for your records</li>
+                                                <li>• Contact the barber directly for changes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 pt-4">
+                                    <button
+                                        type="button"
+                                        onclick="app.setStep(2)"
+                                        class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-lg transition-colors"
+                                    >
+                                        Back
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                                    >
+                                        Continue
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderBookingConfirmation() {
+                if (!this.selectedDate || !this.selectedTime || !this.clientInfo.name) {
+                    this.setStep(1);
+                    return '';
+                }
+
+                return `
+                    <div class="glass-effect border-0 shadow-2xl max-w-2xl mx-auto bg-gradient-to-br from-white/95 to-blue-50/95 backdrop-blur-lg rounded-2xl overflow-hidden">
+                        <div class="text-center pb-6 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-t-2xl p-8">
+                            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                <i class="fas fa-check-circle text-white text-2xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-light">Confirm Your Booking</h2>
+                            <p class="text-green-100 mt-2">Please review your appointment details carefully</p>
+                        </div>
+                        <div class="p-8 space-y-6">
+                            <!-- Price Display -->
+                            <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-2xl text-center text-white shadow-lg">
+                                <div class="flex items-center justify-center gap-3 mb-2">
+                                    <i class="fas fa-dollar-sign text-2xl"></i>
+                                    <span class="text-4xl font-bold">$4.00</span>
+                                </div>
+                                <p class="text-green-100 font-medium text-lg">50-Minute Professional Haircut</p>
+                                <div class="mt-4 bg-white/20 rounded-lg p-3 backdrop-blur-sm">
+                                    <p class="text-sm font-medium">What's Included:</p>
+                                    <p class="text-sm text-green-100">Professional cut, styling, and consultation</p>
+                                </div>
+                            </div>
+
+                            <!-- Appointment Details -->
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border-2 border-blue-100">
+                                    <i class="fas fa-calendar text-blue-600 text-xl"></i>
+                                    <div>
+                                        <p class="font-semibold text-slate-800">Date</p>
+                                        <p class="text-slate-600">${DateUtils.format(this.selectedDate, 'EEEE')}</p>
+                                        <p class="text-slate-600">${DateUtils.format(this.selectedDate, 'MMMM d, yyyy')}</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border-2 border-green-100">
+                                    <i class="fas fa-clock text-green-600 text-xl"></i>
+                                    <div>
+                                        <p class="font-semibold text-slate-800">Time</p>
+                                        <p class="text-slate-600 text-lg font-medium">${this.selectedTime.start} - ${this.selectedTime.end}</p>
+                                        <p class="text-slate-500 text-sm">50 minutes</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border-2 border-purple-100">
+                                    <i class="fas fa-user text-purple-600 text-xl"></i>
+                                    <div>
+                                        <p class="font-semibold text-slate-800">Name</p>
+                                        <p class="text-slate-600 text-lg">${this.clientInfo.name}</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border-2 border-amber-100">
+                                    <i class="fas fa-envelope text-amber-600 text-xl"></i>
+                                    <div>
+                                        <p class="font-semibold text-slate-800">Email</p>
+                                        <p class="text-slate-600">${this.clientInfo.email}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cancellation Policy -->
+                            <div class="bg-gradient-to-r from-amber-50 to-red-50 p-6 rounded-2xl border border-amber-200">
+                                <h4 class="font-semibold text-amber-900 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Cancellation Policy
+                                </h4>
+                                <div class="space-y-3 text-amber-800">
+                                    <div class="flex items-center justify-between p-3 bg-white/60 rounded-lg">
+                                        <span>Cancellation deadline:</span>
+                                        <span class="font-semibold">5 hours before appointment</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-white/60 rounded-lg">
+                                        <span>Cancellation fee:</span>
+                                        <span class="font-semibold text-red-600">$2.00</span>
+                                    </div>
+                                    <p class="text-sm bg-red-100 text-red-800 p-3 rounded-lg">
+                                        <strong>Important:</strong> After cancellation, you must tear off the bottom part of your booking receipt to confirm the cancellation fee payment.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex gap-4 pt-4">
+                                <button
+                                    onclick="app.setStep(3)"
+                                    class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-lg transition-colors"
+                                >
+                                    Back
+                                </button>
+                                <button
+                                    onclick="app.confirmBooking()"
+                                    class="flex-1 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                                >
+                                    <i class="fas fa-check-circle mr-2"></i>
+                                    Confirm Booking - $4.00
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderBookingSuccess() {
+                return `
+                    <div class="glass-effect border-0 shadow-2xl max-w-lg mx-auto bg-gradient-to-br from-green-50/95 to-emerald-50/95 backdrop-blur-lg rounded-2xl overflow-hidden">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center shadow-lg bounce-in">
+                                <i class="fas fa-check-circle text-white text-3xl"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold text-slate-800 mb-4 fade-in" style="animation-delay: 0.2s">
+                                Appointment Booked Successfully! 🎉
+                            </h2>
+                            <p class="text-slate-600 mb-4 text-lg leading-relaxed fade-in" style="animation-delay: 0.4s">
+                                Your appointment has been saved in our system.
+                            </p>
+                            <div class="bg-blue-50 p-4 rounded-lg mb-8 border border-blue-200 fade-in" style="animation-delay: 0.6s">
+                                <p class="text-blue-800 text-sm">
+                                    <strong>Important:</strong> Please keep your appointment details and arrive on time. For any changes, contact the barber directly.
+                                </p>
+                            </div>
+                            <button
+                                onclick="app.navigateTo('HomePage')"
+                                class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 fade-in"
+                                style="animation-delay: 0.8s"
+                            >
+                                Return to Homepage
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderCancelAppointment() {
+                const container = document.createElement('div');
+                container.className = 'min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 p-6';
+                
+                container.innerHTML = `
+                    <div class="max-w-2xl mx-auto">
+                        <div class="flex items-center gap-4 mb-8 fade-in">
+                            <button onclick="app.navigateTo('HomePage')" class="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl p-2 transition-colors">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <div>
+                                <h1 class="text-4xl font-light text-white">Cancel Appointment</h1>
+                                <p class="text-slate-300 text-lg">Find and cancel your upcoming appointment</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-effect border-0 shadow-2xl bg-gradient-to-br from-white/95 to-red-50/95 backdrop-blur-lg rounded-2xl overflow-hidden">
+                            <div class="bg-gradient-to-r from-red-600 to-pink-700 text-white rounded-t-2xl p-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <h2 class="text-xl font-semibold">Find Your Appointment</h2>
+                                </div>
+                                <p class="text-red-100">Enter the email address used when booking</p>
+                            </div>
+                            <div class="p-8">
+                                <form id="cancelSearchForm" class="space-y-6">
+                                    <div class="space-y-3">
+                                        <label class="text-sm font-semibold text-slate-700">Email Address</label>
+                                        <div class="relative">
+                                            <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                                            <input
+                                                type="email"
+                                                id="searchEmail"
+                                                required
+                                                placeholder="Enter your email address"
+                                                class="w-full p-4 border-2 border-slate-200 rounded-lg focus:border-red-500 transition-colors pl-12"
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        class="w-full bg-gradient-to-r from-red-600 to-pink-700 hover:from-red-700 hover:to-pink-800 text-white py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                                    >
+                                        Find My Appointments
+                                    </button>
+                                </form>
+
+                                <div id="searchResults" class="mt-6 space-y-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.querySelector('#cancelSearchForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.searchAppointmentsForCancel();
+                });
+
+                return container;
+            }
+
+            renderGallery() {
+                const container = document.createElement('div');
+                container.className = 'min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6';
+                
+                const galleryItems = GalleryItem.list();
+
+                container.innerHTML = `
+                    <div class="max-w-7xl mx-auto">
+                        <!-- Header -->
+                        <div class="flex items-center gap-4 mb-12 fade-in">
+                            <button onclick="app.navigateTo('HomePage')" class="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl p-2 transition-colors">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <div>
+                                <h1 class="text-5xl font-light text-white mb-2">Our Work Gallery</h1>
+                                <p class="text-slate-300 text-xl">Showcasing our professional cuts and styling</p>
+                            </div>
+                        </div>
+
+                        <!-- Gallery Grid -->
+                        ${galleryItems.length > 0 ? `
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                                ${galleryItems.map((item, index) => `
+                                    <div class="bg-white/10 backdrop-blur-lg border-white/20 hover:bg-white/20 transition-all duration-500 group overflow-hidden shadow-2xl rounded-2xl card-hover slide-in-up" style="animation-delay: ${index * 0.1}s">
+                                        <div class="relative aspect-square overflow-hidden">
+                                            <img
+                                                src="${item.image_url}"
+                                                alt="${item.title}"
+                                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            >
+                                            ${item.is_featured ? `
+                                                <div class="absolute top-3 right-3">
+                                                    <div class="bg-gradient-to-r from-amber-400 to-yellow-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                                                        ⭐ Featured
+                                                    </div>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                        <div class="p-6">
+                                            <h3 class="font-bold text-white mb-2 text-lg">${item.title}</h3>
+                                            <p class="text-sm text-slate-300 leading-relaxed">${item.description}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : `
+                            <div class="text-center py-20 fade-in">
+                                <i class="fas fa-camera text-slate-500 text-6xl mx-auto mb-6"></i>
+                                <h3 class="text-3xl text-slate-400 mb-4 font-light">Gallery is Empty</h3>
+                                <p class="text-slate-500 text-lg">Use the barber dashboard to upload your work photos</p>
+                                <button onclick="app.navigateTo('BarberLogin')" class="mt-6 bg-gradient-to-r from-purple-600 to-violet-700 hover:from-purple-700 hover:to-violet-800 text-white px-6 py-3 rounded-lg font-medium">
+                                    <i class="fas fa-sign-in-alt mr-2"></i>
+                                    Barber Login to Upload Photos
+                                </button>
+                            </div>
+                        `}
+
+                        <!-- Footer -->
+                        <div class="text-center mt-20 fade-in" style="animation-delay: 0.5s">
+                            <p class="text-slate-500 text-lg">
+                                Showcasing the best of zonot barbershop • Professional cuts since 2024
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                return container;
+            }
+
+            // =============================================
+            // EVENT HANDLERS AND BUSINESS LOGIC
+            // =============================================
+
+            toggleWorkingDay(dayIndex, isAvailable) {
+                const workingHours = WorkingHours.list();
+                const existing = workingHours.find(wh => wh.day_of_week === dayIndex);
+                
+                if (existing) {
+                    WorkingHours.update(existing.id, { is_available: isAvailable });
+                } else {
+                    WorkingHours.create({
+                        day_of_week: dayIndex,
+                        start_time: "15:00",
+                        end_time: "22:00",
+                        is_available: isAvailable
+                    });
+                }
+                
+                this.render();
+            }
+
+            updateWorkingTime(dayIndex, field, value) {
+                const workingHours = WorkingHours.list();
+                const existing = workingHours.find(wh => wh.day_of_week === dayIndex);
+                
+                if (existing) {
+                    WorkingHours.update(existing.id, { [field]: value });
+                }
+            }
+
+            saveWorkingHours() {
+                showToast('זמני העבודה נשמרו בהצלחה!', 'success');
+                this.render();
+            }
+
+            async cancelBarberAppointment(appointmentId) {
+                if (!confirm('האם אתה בטוח שברצונך לבטל את התור?')) {
+                    return;
+                }
+
+                const appointment = Appointment.list().find(apt => apt.id === appointmentId);
+                if (!appointment) return;
+
+                try {
+                    Appointment.update(appointmentId, {
+                        status: 'cancelled',
+                        cancelled_by: 'barber',
+                        cancellation_reason: 'Cancelled by barber',
+                        cancelled_date: new Date().toISOString()
+                    });
+
+                    const formattedDate = DateUtils.format(new Date(appointment.appointment_date), 'EEEE, dd MMMM yyyy');
+                    
+                    const clientCancelParams = {
+                        client_name: appointment.client_name,
+                        client_email: appointment.client_email,
+                        appointment_date: formattedDate,
+                        appointment_time: appointment.start_time,
+                        barber_email: BARBER_EMAIL,
+                        to_email: appointment.client_email
+                    };
+
+                    const barberCancelParams = {
+                        client_name: appointment.client_name,
+                        client_email: appointment.client_email,
+                        appointment_date: formattedDate,
+                        appointment_time: appointment.start_time,
+                        barber_email: BARBER_EMAIL,
+                        to_email: BARBER_EMAIL
+                    };
+
+                    console.log('Sending cancellation emails for barber cancellation...');
+                    console.log('Client email to:', appointment.client_email);
+                    console.log('Barber email to:', BARBER_EMAIL);
+
+                    const emailPromises = [
+                        sendTemplatedEmail(CLIENT_CANCELLATION_TEMPLATE, clientCancelParams),
+                        sendTemplatedEmail(BARBER_CANCELLATION_TEMPLATE, barberCancelParams)
+                    ];
+
+                    await Promise.all(emailPromises);
+                    
+                    console.log('Barber cancellation emails sent successfully');
+                    
+                    showToast('התור בוטל בהצלחה! הודעות ביטול נשלחו.', 'success');
+                    this.render();
+                    
+                } catch (error) {
+                    console.error('Error during barber cancellation:', error);
+                    showToast('התור בוטל, אך הייתה בעיה בשליחת הודעות האימייל.', 'error');
+                    this.render();
+                }
+            }
+
+            toggleGalleryFeatured(itemId) {
+                const item = GalleryItem.list().find(i => i.id === itemId);
+                if (item) {
+                    GalleryItem.update(itemId, {
+                        is_featured: !item.is_featured
+                    });
+                    this.render();
+                }
+            }
+
+            deleteGalleryItem(itemId) {
+                if (!confirm('האם אתה בטוח שברצונך למחוק את הפריט הזה?')) {
+                    return;
+                }
+
+                GalleryItem.delete(itemId);
+                showToast('הפריט נמחק בהצלחה!', 'success');
+                this.render();
+            }
+
+            async confirmBooking() {
+                if (!this.selectedDate || !this.selectedTime || !this.clientInfo.name) {
+                    showToast('Missing booking information', 'error');
+                    return;
+                }
+
+                // Validate client information with enhanced email validation
+                const validation = validateClientForm(
+                    this.clientInfo.name, 
+                    this.clientInfo.email, 
+                    this.clientInfo.phone
+                );
+
+                if (!validation.isValid) {
+                    showToast(validation.errors[0], 'error');
+                    return;
+                }
+
+                const confirmButton = document.querySelector('button[onclick="app.confirmBooking()"]');
+                const originalText = confirmButton.innerHTML;
+                confirmButton.innerHTML = '<div class="spinner mx-auto"></div> Processing...';
+                confirmButton.disabled = true;
+
+                try {
+                    console.log('🚀 Starting booking confirmation process...');
+                    
+                    const appointment = Appointment.create({
+                        barber_id: "main_barber",
+                        client_name: this.clientInfo.name,
+                        client_email: this.clientInfo.email,
+                        client_phone: this.clientInfo.phone,
+                        appointment_date: this.selectedDate.toISOString().split('T')[0],
+                        start_time: this.selectedTime.start,
+                        end_time: this.selectedTime.end,
+                        status: "booked",
+                        price: 4.0,
+                        cancellation_fee: 2.0,
+                        confirmation_sent: true
+                    });
+
+                    console.log('✅ Appointment created:', appointment);
+
+                    const formattedDate = DateUtils.format(this.selectedDate, 'EEEE, dd MMMM yyyy');
+                    
+                    const clientEmailParams = {
+                        client_name: this.clientInfo.name,
+                        client_email: this.clientInfo.email,
+                        appointment_date: formattedDate,
+                        appointment_time: this.selectedTime.start,
+                        barber_email: BARBER_EMAIL,
+                        to_email: this.clientInfo.email
+                    };
+
+                    const barberEmailParams = {
+                        client_name: this.clientInfo.name,
+                        client_email: this.clientInfo.email,
+                        appointment_date: formattedDate,
+                        appointment_time: this.selectedTime.start,
+                        barber_email: BARBER_EMAIL,
+                        to_email: BARBER_EMAIL
+                    };
+
+                    console.log('📧 Preparing to send client confirmation to:', this.clientInfo.email);
+                    console.log('📧 Preparing to send barber notification to:', BARBER_EMAIL);
+
+                    const emailPromises = [
+                        sendTemplatedEmail(CLIENT_CONFIRMATION_TEMPLATE, clientEmailParams),
+                        sendTemplatedEmail(BARBER_NOTIFICATION_TEMPLATE, barberEmailParams)
+                    ];
+
+                    await Promise.all(emailPromises);
+                    
+                    console.log('🎉 All booking emails sent successfully');
+                    
+                    showToast('Appointment booked successfully! Confirmation emails sent.', 'success');
+                    
+                    this.selectedDate = null;
+                    this.selectedTime = null;
+                    this.clientInfo = { name: "", email: "", phone: "" };
+                    this.bookingData = {};
+                    
+                    this.setStep(5);
+                    
+                } catch (error) {
+                    console.error('❌ Error during booking process:', error);
+                    showToast('Appointment was booked, but there was an issue sending confirmation emails. Please note your appointment details.', 'error');
+                    this.setStep(5);
+                } finally {
+                    confirmButton.innerHTML = originalText;
+                    confirmButton.disabled = false;
+                }
+            }
+
+            searchAppointmentsForCancel() {
+                const email = document.getElementById('searchEmail').value;
+                const resultsDiv = document.getElementById('searchResults');
+                
+                if (!email) {
+                    resultsDiv.innerHTML = '<p class="text-red-600 text-center">נא להזין כתובת אימייל</p>';
+                    return;
+                }
+
+                // Enhanced email validation for search :cite[1]:cite[4]
+                if (!validateEmailFormat(email)) {
+                    resultsDiv.innerHTML = '<p class="text-red-600 text-center">נא להזין כתובת אימייל תקינה</p>';
+                    return;
+                }
+
+                const userAppointments = Appointment.list().filter(apt => 
+                    apt.client_email === email && 
+                    apt.status === 'booked'
+                );
+
+                if (userAppointments.length === 0) {
+                    resultsDiv.innerHTML = '<p class="text-slate-600 text-center">לא נמצאו תורים עם כתובת אימייל זו.</p>';
+                    return;
+                }
+
+                resultsDiv.innerHTML = `
+                    <h3 class="font-semibold text-slate-800 text-lg mb-4">Your Appointments:</h3>
+                    ${userAppointments.map((appointment, index) => `
+                        <div class="p-6 bg-white border-2 border-red-100 rounded-xl shadow-sm hover:shadow-md transition-shadow slide-in-up" style="animation-delay: ${index * 0.1}s">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h4 class="font-semibold text-slate-800 text-lg">
+                                        ${DateUtils.format(new Date(appointment.appointment_date), 'EEEE, MMMM d, yyyy')}
+                                    </h4>
+                                    <p class="text-slate-600 text-lg">
+                                        ${appointment.start_time} - ${appointment.end_time}
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-green-600">$${appointment.price}.00</p>
+                                    <p class="text-sm text-red-600">Cancellation: $${appointment.cancellation_fee}.00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-red-50 to-pink-50 p-4 rounded-lg border border-red-200 mb-4">
+                                <p class="text-sm text-red-800 font-medium mb-2">
+                                    ⚠️ Cancellation Policy: $${appointment.cancellation_fee}.00 fee applies
+                                </p>
+                                <p class="text-xs text-red-700">
+                                    <strong>Important:</strong> After cancellation, you must tear off the bottom part of your receipt to confirm the cancellation fee payment.
+                                </p>
+                            </div>
+                            
+                            <button
+                                onclick="app.cancelClientAppointment('${appointment.id}')"
+                                class="w-full bg-gradient-to-r from-red-600 to-pink-700 hover:from-red-700 hover:to-pink-800 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                            >
+                                Cancel This Appointment - $${appointment.cancellation_fee}.00 Fee
+                            </button>
+                        </div>
+                    `).join('')}
+                `;
+            }
+
+            async cancelClientAppointment(appointmentId) {
+                if (!confirm('Are you sure you want to cancel this appointment? A $2.00 cancellation fee applies.')) {
+                    return;
+                }
+
+                const appointment = Appointment.list().find(apt => apt.id === appointmentId);
+                if (!appointment) return;
+
+                try {
+                    Appointment.update(appointmentId, {
+                        status: 'cancelled',
+                        cancelled_by: 'client',
+                        cancellation_reason: 'Cancelled by client',
+                        cancelled_date: new Date().toISOString()
+                    });
+
+                    const formattedDate = DateUtils.format(new Date(appointment.appointment_date), 'EEEE, dd MMMM yyyy');
+                    
+                    const clientCancelParams = {
+                        client_name: appointment.client_name,
+                        client_email: appointment.client_email,
+                        appointment_date: formattedDate,
+                        appointment_time: appointment.start_time,
+                        barber_email: BARBER_EMAIL,
+                        to_email: appointment.client_email
+                    };
+
+                    const barberCancelParams = {
+                        client_name: appointment.client_name,
+                        client_email: appointment.client_email,
+                        appointment_date: formattedDate,
+                        appointment_time: appointment.start_time,
+                        barber_email: BARBER_EMAIL,
+                        to_email: BARBER_EMAIL
+                    };
+
+                    console.log('Sending cancellation emails...');
+                    console.log('Client email to:', appointment.client_email);
+                    console.log('Barber email to:', BARBER_EMAIL);
+
+                    const emailPromises = [
+                        sendTemplatedEmail(CLIENT_CANCELLATION_TEMPLATE, clientCancelParams),
+                        sendTemplatedEmail(BARBER_CANCELLATION_TEMPLATE, barberCancelParams)
+                    ];
+
+                    await Promise.all(emailPromises);
+                    
+                    console.log('Cancellation emails sent successfully');
+                    
+                    showToast('Appointment cancelled successfully! $2.00 cancellation fee applies.', 'success');
+                    this.navigateTo('HomePage');
+                    
+                } catch (error) {
+                    console.error('Error during cancellation:', error);
+                    showToast('Appointment was cancelled, but there was an issue sending the notification emails.', 'error');
+                    this.navigateTo('HomePage');
+                }
+            }
+        }
+
+        // Initialize the application
+        const app = new AppState();
+
+        // Add event listeners after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('submit', function(e) {
+                if (e.target.id === 'clientDetailsForm') {
+                    e.preventDefault();
+                    const name = document.getElementById('clientName').value;
+                    const email = document.getElementById('clientEmail').value;
+                    const phone = document.getElementById('clientPhone').value;
+                    
+                    // Enhanced validation with email format checking
+                    const validation = validateClientForm(name, email, phone);
+                    
+                    if (validation.isValid) {
+                        app.clientInfo = { name, email, phone };
+                        app.setStep(4);
+                    } else {
+                        showToast(validation.errors[0], 'error');
+                    }
+                }
+            });
+
+            const initializeSampleData = () => {
+                if (Appointment.list().length === 0) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+                    Appointment.create({
+                        barber_id: "main_barber",
+                        client_name: "John Doe",
+                        client_email: "john@example.com",
+                        client_phone: "050-1234567",
+                        appointment_date: tomorrowStr,
+                        start_time: "15:00",
+                        end_time: "15:50",
+                        status: "booked"
+                    });
+
+                    Appointment.create({
+                        barber_id: "main_barber", 
+                        client_name: "Jane Smith",
+                        client_email: "jane@example.com",
+                        client_phone: "050-7654321",
+                        appointment_date: tomorrowStr,
+                        start_time: "16:00",
+                        end_time: "16:50",
+                        status: "booked"
+                    });
+                }
+            };
+
+            initializeSampleData();
+        });
+
+        // Make app globally available
+        window.app = app;
+    </script>
+</body>
+</html>
